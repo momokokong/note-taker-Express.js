@@ -34,9 +34,9 @@ This is to setup a Node.js Express backend as the server to take requests for th
 
 ## Tests
 1. Require [Insomnia](https://insomnia.rest/download), API:
-   - GET notes https://note-taker-express-js-767d.onrender.com/api/notes should return the saved notes with id of each note.
-   - POST note https://note-taker-express-js-767d.onrender.com/api/notes with a request body containing a JSON object {"title":string,"text":string} would add a new note.  Return status code 400 if the request is bad.
-   - DELETE note https://note-taker-express-js-767d.onrender.com/api/notes/:id where id indicates the note you would like to delete.  You can find the id from the GET request.  Return status code 400 if the id is not found. 
+   - GET notes `https://note-taker-express-js-767d.onrender.com/api/notes` should return the saved notes with id of each note.
+   - POST note `https://note-taker-express-js-767d.onrender.com/api/notes` with a request body containing a JSON object {"title":string,"text":string} would add a new note.  Return status code 400 if the request is bad.
+   - DELETE note `https://note-taker-express-js-767d.onrender.com/api/notes/:id` where id indicates the note you would like to delete.  You can find the id from the GET request.  Return status code 400 if the id is not found. 
 
 ## Contributing
 Contact me.  Find my information in the [Questions](#Questions) section.

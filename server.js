@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const notes = require("./db/db.json");
 const { readFromFile, writeToFile, readAndAppend } = require("./helpers/fsUtils");
 const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({length:6});
@@ -22,12 +21,9 @@ app.get("/notes", (req, res) =>
 );
 
 app.get("/api/notes", (req, res) => {
-  let savedNotes;
   readFromFile(db)
   .then((data) => {
-    savedNotes = JSON.parse(data)
-  }).then( () => {
-    res.json(savedNotes);
+    res.json(JSON.parse(data))
   });
 });
 

@@ -6,7 +6,7 @@ const ShortUniqueId = require("short-unique-id");
 const uid = new ShortUniqueId({length:6});
 
 const app = express();
-const PORT = process.env.port || 3001;
+const PORT = process.env.PORT || 3001;
 const db = "./db/db.json";
 
 app.use(express.static('public'));

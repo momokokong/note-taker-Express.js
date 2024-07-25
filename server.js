@@ -41,6 +41,7 @@ app.get("/api/notes", (req, res) => {
 });
 
 // route serverURL/api/notes POST request to add a new note with UUID to db.json.
+// return an error code 400 if the request does not contain the right data
 app.post("/api/notes", (req, res) => {
   const {title, text} = req.body;
   if (title && text){

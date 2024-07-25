@@ -1,25 +1,37 @@
+// server.js
+// This is a Note Taker server handles http requests and interact with db.json to read, write and delete notes.  
+// required modules: express, path, short-unique-id, ./helpers/fsUtils.js
 const express = require("express");
 const path = require("path");
 const { readFromFile, writeToFile, readAndAppend } = require("./helpers/fsUtils");
 const ShortUniqueId = require("short-unique-id");
-const uid = new ShortUniqueId({length:6});
 
+// initializing global variables
+//   uid: the 6 char unique id generator instance
+//   app: the express server instance
+//   PORT: the port that the server listens on. Either use 3001 or a port specified by the environment
+//   db: the path of the database file db.json which contains the existing notes.
+const uid = new ShortUniqueId({length:6});
 const app = express();
 const PORT = process.env.PORT || 3001;
 const db = "./db/db.json";
 
+// express middleware to parse json, url encode and redirect the url root request to public.
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// route serverURL/ GET request to return /public/index.html 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
+// route serverURL/notes GET request to return /public/notes.html 
 app.get("/notes", (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
+// route serverURL/api/notes GET request to return a JSON object that contains notes from db.json 
 app.get("/api/notes", (req, res) => {
   readFromFile(db)
   .then((data) => {
@@ -27,6 +39,7 @@ app.get("/api/notes", (req, res) => {
   });
 });
 
+// route serverURL/api/notes POST request to add a new note with UUID to db.json.
 app.post("/api/notes", (req, res) => {
   const newNotes = {
     ...req.body, 
@@ -36,6 +49,8 @@ app.post("/api/notes", (req, res) => {
   res.end();
 });
 
+// route serverURL/api/notes/:id DELETE request to remove a post associated with a specific UUID from db.json.  
+// If UUID is not found, it does not make any change to the db.
 app.delete("/api/notes/:id", (req ,res) => {
   readFromFile(db)
   .then((data) => {
@@ -50,6 +65,6 @@ app.delete("/api/notes/:id", (req ,res) => {
 });
 
 app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT}`)
+  console.log(`App listening at http://localhost:${PORT} if running from local`);
 );
 

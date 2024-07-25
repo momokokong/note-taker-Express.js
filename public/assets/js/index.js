@@ -56,7 +56,7 @@ const deleteNote = (id) =>
 const renderActiveNote = () => {
   hide(saveNoteBtn);
   hide(clearBtn);
-
+// updated the condition here to ensure it reflect undefined
   if (typeof activeNote.id !== "undefined") {
     show(newNoteBtn);
     console.log(activeNote.id);
